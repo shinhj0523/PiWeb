@@ -1,0 +1,43 @@
+<div class="page">
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="link back">
+          <i class="f7-icons">chevron_left</i>
+          <span>뒤로</span>
+        </a>
+      </div>
+      <div class="title">알람 영어 단어장</div>
+      <div class="right">
+        <a href="/contact/" class="link add">
+          <i class="f7-icons">plus</i>
+          <span>등록</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="page-content">
+    <div class="block">
+      <ul class="list media-list post-list">
+
+        {% for i in range(1,10) %}
+        <li>
+          <a href="/single/">
+            <div class="item-content">
+              <div class="item-media"><img src="{{url_for('static',filename='img/thumb-11.jpg')}}" alt=""></div>
+              <div class="item-inner">
+                <div class="item-subtitle">단어</div>
+                <div class="item-title">The 6th Edition of the Body Painting Contest</div>
+                <div class="item-subtitle bottom-subtitle"><i class="f7-icons">clock</i></i>20 min ago</div>
+              </div>
+            </div>
+          </a>
+        </li>
+        {% endfor %}
+
+
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/framework7.bundle.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/framework7-icons.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+  </head>
+  <body class="color-theme-pink">
+    <div id="app">
+      <div class="views tabs">
+        <!-- Tabbar -->
+        {% include 'view_tab_bars.html' %}
+        
+        <!-- Main view -->
+        {% include 'view_tab_today.html' %}
+        
+        <!-- Categories View -->
+        {% include 'view_tab_categories.html' %}
+        
+        <!-- Discover View -->
+        {% include 'view_tab_discover.html' %}
+        
+        <!-- Search View -->
+        {% include 'view_tab_search.html' %}
+        
+        <!-- Pages View -->
+        {% include 'view_tab_components.html' %}
+      </div>
+    </div>
+    <script src="{{url_for('static',filename='js/framework7.bundle.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/app.js')}}"></script>
+  </body>
+</html>
