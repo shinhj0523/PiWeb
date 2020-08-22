@@ -20,17 +20,15 @@ class WordBook(db.Model):
 
 @app.route('/')
 def root():
-    return "d"
+    alldata = WordBook.query.all() # select * from wordbook;
+    return render_template("list.html", words = alldata)
     
 @app.route('/createdb')
 def createdb():
     db.create_all()
     return "데이터베이스가 만들어졌습니다. 폴더에서 확인하세요."
 
-@app.route('/list')
-def list():
-    alldata = WordBook.query.all() # select * from wordbook;
-    return render_template("list.html", words = alldata)
+
 
 @app.route('/insert', methods=['POST'])
 def insert():
@@ -42,12 +40,22 @@ def insert():
         db.session.add(new_word)
         db.session.commit()
 
-        return redirect(url_for('list'))
+        return redirect(url_for('root'))
 
 @app.route('/delete/<id>', methods=['GET','POST'])
 def delete(id):
     del_word = WordBook.query.get(id)
     db.session.delete(del_word)
     db.session.commit()
-    return redirect(url_for('list'))
-    #드디어 집간다
+    return redirect(url_for('root'))
+    
+
+@app.route('/update', methods = ['POST'])
+def update():
+    if request.method == 'POST':
+        id = request.form['id']
+        wb = WordBook.query.get(id)
+        wb.word = request.form['word']
+        wb.memo = request.form['memo']
+        db.session.commit()
+        return redirect(url_for('root'))
