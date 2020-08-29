@@ -6,43 +6,50 @@
     <title>Document</title>
 </head>
 <body>
+
+    <h1>찾기</h1>
+    <form action = "/find" method="POST">
+    찾고자하는 단어:<input type="text" name="word" value = "{{aaaa}}">
+    <input type ="submit" value="찾기"><br>
+    </form>
+
     <h1>리스트</h1>
     {% for row in words %}
         {{row.id}},
         {{row.word}} : {{row.memo}} 
         <input type="button" value="삭제" onclick="fDelete({{row.id}})">
         <input type="button" value="수정" onclick="fUpdate('{{row.word}}','{{row.memo}}','{{row.id}}')">
+        <input type="button" value="듣기">
         <br>
-    {% endfor %}
+        {% endfor %}
 
-<h1>단어추가</h1>
-<form action="/insert" method="POST">
-    단어명:<input type="text" name="word"><br>
-    설명:<input type="text" name="memo"><br>
-    <input type="submit" value="저장">
-</form> 
+    <h1>단어추가</h1>
+    <form action="/insert" method="POST">
+        단어명:<input type="text" name="word"><br>
+        설명:<input type="text" name="memo"><br>
+        <input type="submit" value="저장">
+    </form> 
 
-<h1>단어수정</h1>
-<form name="upda" action="/update" method="POST">
-    ID:<input type="text" name="id" readonly><br>
-    단어명:<input type="text" name="word"><br>
-    설명:<input type="text" name="memo"><br>
-    <input type="submit" value="저장">
-</form>
+    <h1>단어수정</h1>
+    <form name="upda" action="/update" method="POST">
+        ID:<input type="text" name="id" readonly><br>
+        단어명:<input type="text" name="word"><br>
+        설명:<input type="text" name="memo"><br>
+        <input type="submit" value="저장">
+    </form>
 
 
 <script language="javascript">
+function fDelete(id){
+    if (confirm("정말로 삭제하시겠습니까?")==false) return;
+    document.location.href = '/delete/'+id;
+}
+
 function fUpdate(a,b,i) {
     alert(a+" 수정할거니?");
     document.upda.id.value = i;
     document.upda.word.value = a;
     document.upda.memo.value = b;
-}
-
-
-function fDelete(id){
-    if (confirm("정말로 삭제하시겠습니까?")==false) return;
-    document.location.href = '/delete/'+id;
 }
 </script>
 

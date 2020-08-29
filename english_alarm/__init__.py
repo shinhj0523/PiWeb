@@ -18,6 +18,12 @@ class WordBook(db.Model):
         self.word = word
         self.memo = memo
 
+@app.route( '/find', methods=['POST'] )
+def find():
+    element = request.form['word']
+    find_data = WordBook.query.filter(WordBook.word.contains(element))
+    return render_template("list.html", words = find_data, aaaa = element)
+
 @app.route('/')
 def root():
     alldata = WordBook.query.all() # select * from wordbook;
