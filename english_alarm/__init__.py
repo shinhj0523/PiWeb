@@ -1,6 +1,8 @@
 # -*- coding:utf-8 -*-
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from gtts import gTTS
+import pygame
 
 app = Flask(__name__)
 app.secret_key = "shinheejoon"
@@ -28,7 +30,7 @@ def find():
 def root():
     alldata = WordBook.query.all() # select * from wordbook;
     return render_template("list.html", words = alldata)
-    
+
 @app.route('/createdb')
 def createdb():
     db.create_all()
@@ -65,3 +67,23 @@ def update():
         wb.memo = request.form['memo']
         db.session.commit()
         return redirect(url_for('root'))
+
+@app.route('/soundplay/<id>', methods = ['GET','POST'])
+def soundplay(id):
+    #db에서 불러온 값을 변수에 저장 후 mp3파일을 만듬 
+    sound_word = WordBook.query.get(id)
+    real_sound_play = sound_word.word + "," + sound_word.memo
+    tts = gTTS(text = real_sound_play, lang='ko')
+    tts.save('listen.mp3')
+
+    #pygame을 이용한 mp3 설정
+    pygame.mixer.init()
+    pygame.mixer.music.load("listen.mp3")
+    pygame.mixer.music.set_volume(3.0)
+    pygame.mixer.music.play()
+    
+    # mp3가 실행되는 동안 while문을 벗어나지 않음
+    while pygame.mixer.music.get_busy() == True:
+        pass
+    #다시 list 페이지로 기기
+    return redirect(url_for('root'))

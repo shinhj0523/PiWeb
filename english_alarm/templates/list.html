@@ -19,7 +19,7 @@
         {{row.word}} : {{row.memo}} 
         <input type="button" value="삭제" onclick="fDelete({{row.id}})">
         <input type="button" value="수정" onclick="fUpdate('{{row.word}}','{{row.memo}}','{{row.id}}')">
-        <input type="button" value="듣기">
+        <input type="button" value="듣기" onclick="fSoundPlay({{ row.id }})">
         <br>
         {% endfor %}
 
@@ -50,6 +50,10 @@ function fUpdate(a,b,i) {
     document.upda.id.value = i;
     document.upda.word.value = a;
     document.upda.memo.value = b;
+}
+function fSoundPlay(id) {
+    document.location.href = '/soundplay/'+id;
+
 }
 </script>
 
